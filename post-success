@@ -1,0 +1,40 @@
+<%args>
+$body
+$title
+$tags
+</%args>
+
+% use DateTime;
+
+% my $id = DateTime->now->epoch;
+% my $post_path = $ENV{DOCUMENT_ROOT} . qq?/posts/$id?;
+
+% open my $fh, '>', $post_path or die $!;
+% print $fh qq?<title>$title</title>?;
+% print $fh qq?<h1>$title</h1>?;
+% print $fh $body;
+% close $fh;
+
+% my @tags = split ',' => $tags; 
+% $_ =~ s/^\s+|\s+$//g for @tags; #trim whitespace from members of tag list
+% my $tag_path = $ENV{DOCUMENT_ROOT} . qq?/tags?;
+
+% open $fh, '<', $tag_path or die $!;
+% my @tag_file_lines = map { chomp } <$fh>;
+% close $fh;
+
+% open $fh, '>', $tag_path or die $!;
+% OUTER: for my $tag (@tags) {
+%   INNER: for my $line (@tag_file_lines) {
+%       if ( $line =~ /^$tag/ ) {
+%           $line .= qq? $id?;
+%           next OUTER;
+%       }
+%        else { next INNER } ;
+%   }
+%       push @tag_file_lines => $tag . qq? $id?;
+% }
+% print $fh qq?$_\n? for @tag_file_lines;
+% close $fh;
+
+posted. <a href=posts/<% $id %>>see it</a> or go <a href=index.html>home</a>
