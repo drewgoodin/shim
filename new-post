@@ -1,0 +1,7 @@
+<form action = post-success
+                method = "post">
+<p>Title: <input type = "text" name = "title" /></p>
+<p><input type = "text" name = "body" value = "post here..." /></p>
+<p>Tags (comma separated):<input type = "text" name = "tags" /></p>
+<button type = "submit">post</button>
+</form>

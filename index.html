@@ -1,0 +1,34 @@
+<%args>
+@tags => () 
+</%args>
+
+% use lib $ENV{DOCUMENT_ROOT};
+% use Shim::Tools;
+% use DateTime;
+
+<a href=new-post>New Post</a>
+
+% if (@tags) {
+<p>Narrowed by:</p>
+% for (@tags) {
+<ul>
+    <li><% $_ %></li>
+</ul>
+% }
+% }
+% else {
+<p>Showing all posts.</p>
+% }
+
+% my $posts = Shim::Tools::fetch_posts();
+
+<p>
+<ul>
+% for (@$posts) {
+<li><a href=posts/<% $_->id %>>
+    <% $_->title %>
+    </a>
+</li>
+% }
+</ul>
+</p>
