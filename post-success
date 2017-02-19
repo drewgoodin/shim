@@ -4,37 +4,57 @@ $title
 $tags
 </%args>
 
-% use DateTime;
+<%perl>
+use DateTime;
 
-% my $id = DateTime->now->epoch;
-% my $post_path = $ENV{DOCUMENT_ROOT} . qq?/posts/$id?;
+my $id = DateTime->now->epoch;
+my $post_path = $ENV{DOCUMENT_ROOT} . qq?/posts/$id?;
 
-% open my $fh, '>', $post_path or die $!;
-% print $fh qq?<title>$title</title>?;
-% print $fh qq?<h1>$title</h1>?;
-% print $fh $body;
-% close $fh;
+#print the title body of the post to a new text file
 
-% my @tags = split ',' => $tags; 
-% $_ =~ s/^\s+|\s+$//g for @tags; #trim whitespace from members of tag list
-% my $tag_path = $ENV{DOCUMENT_ROOT} . qq?/tags?;
+open my $fh, '>', $post_path or die $!;
+print $fh qq?<title>$title</title>?;
+print $fh qq?<h1>$title</h1>?;
+print $fh qq?<body>$body</body>?;
+close $fh;
 
-% open $fh, '<', $tag_path or die $!;
-% my @tag_file_lines = map { chomp } <$fh>;
-% close $fh;
+#make an array of tags from the string sent to this component via http post
 
-% open $fh, '>', $tag_path or die $!;
-% OUTER: for my $tag (@tags) {
-%   INNER: for my $line (@tag_file_lines) {
-%       if ( $line =~ /^$tag/ ) {
-%           $line .= qq? $id?;
-%           next OUTER;
-%       }
-%        else { next INNER } ;
-%   }
-%       push @tag_file_lines => $tag . qq? $id?;
-% }
-% print $fh qq?$_\n? for @tag_file_lines;
-% close $fh;
+my @tags = split ',' => $tags; 
+$_ =~ s/^\s+|\s+$//g for @tags; #trim whitespace from members of tag list
 
+#open up the tag file to read the tag associations we already have and
+#place them in an array
+
+my $tag_path = $ENV{DOCUMENT_ROOT} . qq?/tags?;
+my @tag_file_lines;
+
+open $fh, '<', $tag_path or die $!;
+for (<$fh>) { 
+    chomp;
+    push @tag_file_lines => $_;
+}
+close $fh;
+
+#modify our tag array to include our new post. 
+
+OUTER: for my $tag (@tags) {
+    INNER: for my $line (@tag_file_lines) {
+       if ( $line =~ /^$tag/ ) {
+           $line .= qq? $id?; # append post ID to appropriate tag line
+                              # if tag already exists
+           next OUTER;
+       }
+       else { next INNER } ;
+    }
+    push @tag_file_lines => $tag . qq? $id?; # add new tag if needed
+}
+
+#refresh our tag file
+
+open $fh, '>', $tag_path or die $!;
+print $fh qq?$_\n? for @tag_file_lines;
+close $fh;
+
+</%perl>
 posted. <a href=posts/<% $id %>>see it</a> or go <a href=index.html>home</a>
