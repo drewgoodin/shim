@@ -57,4 +57,4 @@ print $fh qq?$_\n? for @tag_file_lines;
 close $fh;
 
 </%perl>
-posted. <a href=posts/<% $id %>>see it</a> or go <a href=index.html>home</a>
+posted. <a href=/logged-in/posts/<% $id %>>see it</a> or go <a href=/logged-in/index.html>home</a>

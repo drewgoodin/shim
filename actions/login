@@ -1,0 +1,2 @@
+<h2>Welcome, <% $ENV{REMOTE_USER} %>.</h2>
+<a href='/logged-in/index.html'>Click here</a> to return to the main page.
