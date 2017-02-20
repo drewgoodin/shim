@@ -1,0 +1,7 @@
+<%args>
+$id
+</%args>
+% unlink $ENV{DOCUMENT_ROOT} . qq?/posts/$id?;
+
+% print qq?post deleted?;
+<a href='/logged-in/index.html'>go home</a>
