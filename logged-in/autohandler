@@ -13,3 +13,4 @@ function logout () {
 </script>
 
 <a href = '/' onclick = "logout();">Log out</a>
+
