@@ -1,1 +1,2 @@
-hello
+% $m->call_next();
+<a href='/logged-in/index.html'>go home</a>
