@@ -8,14 +8,13 @@ $tags
 use DateTime;
 
 my $id = DateTime->now->epoch;
-my $post_path = $ENV{DOCUMENT_ROOT} . qq?/posts/$id?;
+my $post_path = $ENV{DOCUMENT_ROOT} . qq?/nowrap/posts/$id?;
 
 #print the title body of the post to a new text file
 
 open my $fh, '>', $post_path or die $!;
-print $fh qq?<title>$title</title>?;
-print $fh qq?<h1>$title</h1>?;
-print $fh qq?<body>$body</body>?;
+print $fh qq?$title\n?;
+print $fh qq?$body\n?;
 close $fh;
 
 #make an array of tags from the string sent to this component via http post
@@ -26,7 +25,7 @@ $_ =~ s/^\s+|\s+$//g for @tags; #trim whitespace from members of tag list
 #open up the tag file to read the tag associations we already have and
 #place them in an array
 
-my $tag_path = $ENV{DOCUMENT_ROOT} . qq?/tags?;
+my $tag_path = $ENV{DOCUMENT_ROOT} . qq?/nowrap/tags?;
 my @tag_file_lines;
 
 open $fh, '<', $tag_path or die $!;
@@ -57,4 +56,4 @@ print $fh qq?$_\n? for @tag_file_lines;
 close $fh;
 
 </%perl>
-posted. <a href=/logged-in/posts/<% $id %>>see it</a> 
+<div>Posted; <a href=/logged-in/view-post?id=<% $id %>>see it</a>.</div>

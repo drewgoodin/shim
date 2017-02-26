@@ -1,7 +1,6 @@
 <%args>
 $id
 </%args>
-% unlink $ENV{DOCUMENT_ROOT} . qq?/posts/$id?;
+% unlink $ENV{DOCUMENT_ROOT} . qq?/nowrap/posts/$id?;
 
-% print qq?post deleted?;
-<a href='/logged-in/index.html'>go home</a>
+<div>Post deleted. <a href='/logged-in/index.html'>Go Home</a>

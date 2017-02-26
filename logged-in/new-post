@@ -1,7 +1,7 @@
 <form action = '/logged-in/post-success'
                 method = "post">
-<p>Title: <input type = "text" name = "title" /></p>
-<p><input type = "text" name = "body" value = "post here..." /></p>
-<p>Tags (comma separated):<input type = "text" name = "tags" /></p>
-<button type = "submit">post</button>
+<p>Title: <input type = "text/plain" name = "title" /></p>
+<p><textarea type = "text/plain" name = "body" value = "post here..."></textarea></p>
+<p>Tags (comma separated):<input type = "text/plain" name = "tags" /></p>
+<button type = "submit">Post</button>
 </form>

@@ -1,17 +1,17 @@
 <%args>
 @tags => () 
 </%args>
-
-% use lib $ENV{DOCUMENT_ROOT};
-% use Shim::Tools;
+<%init>
+use lib $ENV{DOCUMENT_ROOT};
+use Shim::Tools;
+my $posts = Shim::Tools::fetch_posts();
+</%init>
 % use DateTime;
-
 % if (!($ENV{REMOTE_USER})) {
 <div class='corner'>Site owner? <a href=/logged-in/splash>Log In</a></div>
 % }
-
 % if (@tags) {
-<p>Narrowed by:</p>
+<h3>Narrowed by:</h3>
 % for (@tags) {
 <ul>
     <li><% $_ %></li>
@@ -19,16 +19,13 @@
 % }
 % }
 % else {
-<p>Showing all posts.</p>
+<h3>Showing all posts.</h3>
 % }
-
-% my $posts = Shim::Tools::fetch_posts();
-
 <ul>
 % for (@$posts) {
 <li><a href=<% $ENV{REMOTE_USER} ? 
-    "/logged-in/posts/" : 
-    "/posts/" %><% $_->id %>>
+    "/logged-in/view-post?id=" : 
+    "/view-post?id=" %><% $_->id %>>
     <% $_->title %>
     </a>
 </li>

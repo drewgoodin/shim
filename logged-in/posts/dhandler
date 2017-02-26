@@ -1,2 +1,0 @@
-% my $comp_path = qq?/posts/? . $m->dhandler_arg;
-<& $comp_path &>
