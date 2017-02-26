@@ -1,5 +1,3 @@
-% $m->call_next();
-
 <script type = "text/javascript">
 function logout () {
     var url = "/logged-in/logout/";
@@ -11,6 +9,9 @@ function logout () {
     alert("You have been logged out.");
 }
 </script>
+<div class='corner'>Logged in as <% $ENV{REMOTE_USER} %>.
+<a href = '/' onclick = "logout();"> Log out</a>
+</div>
+% $m->call_next();
 
-<a href = '/' onclick = "logout();">Log out</a>
 

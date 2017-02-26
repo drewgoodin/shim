@@ -1,0 +1,8 @@
+<%flags>
+inherit => undef 
+</%flags>
+.corner {
+    position:absolute;
+    right:0px;
+    width:250px;
+}

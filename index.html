@@ -7,7 +7,7 @@
 % use DateTime;
 
 % if (!($ENV{REMOTE_USER})) {
-<p>Site owner? <a href=/logged-in/splash>Log In</a></p>
+<div class='corner'>Site owner? <a href=/logged-in/splash>Log In</a></div>
 % }
 
 % if (@tags) {
@@ -24,7 +24,6 @@
 
 % my $posts = Shim::Tools::fetch_posts();
 
-<p>
 <ul>
 % for (@$posts) {
 <li><a href=<% $ENV{REMOTE_USER} ? 
@@ -35,4 +34,3 @@
 </li>
 % }
 </ul>
-</p>
