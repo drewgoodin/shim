@@ -1,0 +1,11 @@
+% use Text::Markdown qw!markdown!;
+% use lib $ENV{DOCUMENT_ROOT};
+% use Shim::Post;
+<%args>
+$id => "error"
+</%args>
+<%init>
+my $post = Shim::Post->new($id);
+</%init>
+<h2><% $post->title %></h2>
+<% markdown($post->body) %> 

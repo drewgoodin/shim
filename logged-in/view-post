@@ -1,0 +1,6 @@
+<%args>
+$id => "error";
+</%args>
+<& /view-post, id=>$id &>
+<div><a href='/logged-in/delete-post?id=<% $id %>'>Delete Post</a></div>
+<div><a href='/logged-in/index.html'>Go Home</a></div>

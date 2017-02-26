@@ -1,3 +1,0 @@
-% $m->call_next();
-<div><a href='/logged-in/delete-post?id=<% $m->dhandler_arg %>'>Delete Post</a></div>
-<div><a href='/logged-in/index.html'>Go Home</a></div>
