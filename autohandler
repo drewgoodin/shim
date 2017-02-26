@@ -6,6 +6,8 @@
           type = "text/css"
           href = "/style.css" />
 </head>
+<body>
 % $m->call_next();
+</body>
 </html>
 

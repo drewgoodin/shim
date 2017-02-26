@@ -1,4 +1,2 @@
-<p>
 % $m->call_next();
-</p>
-<a href='/'>go home</a>
+<div><a href='/'>Go Home</a></div>

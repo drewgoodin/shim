@@ -13,9 +13,8 @@ my $post_path = $ENV{DOCUMENT_ROOT} . qq?/posts/$id?;
 #print the title body of the post to a new text file
 
 open my $fh, '>', $post_path or die $!;
-print $fh qq?<title>$title</title>?;
-print $fh qq?<h1>$title</h1>?;
-print $fh qq?<body>$body</body>?;
+print $fh qq?$title\n?;
+print $fh qq?$body\n?;
 close $fh;
 
 #make an array of tags from the string sent to this component via http post
@@ -57,4 +56,4 @@ print $fh qq?$_\n? for @tag_file_lines;
 close $fh;
 
 </%perl>
-posted. <a href=/logged-in/posts/<% $id %>>see it</a> 
+<div>Posted; <a href=/logged-in/posts/<% $id %>>see it</a></div>

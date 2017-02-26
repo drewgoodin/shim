@@ -15,11 +15,8 @@ sub fetch_posts {
 sub extract_title {
     my $id = shift;
     open my $fh, '<', $ENV{DOCUMENT_ROOT} . qq?/posts/$id?;
-    while (<$fh>) {
-        if ( /<title>(.+)<\/title>/ ) {
-    return $1;
-}
-}
+    my @post_lines = <$fh>;
+    return shift @post_lines;
 }
 
 1;
