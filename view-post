@@ -9,3 +9,10 @@ my $post = Shim::Post->new($id);
 </%init>
 <h2><% $post->title %></h2>
 <% markdown($post->body) %> 
+% if ($ENV{REMOTE_USER}) {
+<div><a href='/logged-in/delete-post?id=<% $id %>'>Delete Post</a></div>
+<div><a href='/logged-in/index.html'>Go Home</a></div>
+% }
+% else {
+<div><a href='/index.html'>Go Home</a></div>
+%}
