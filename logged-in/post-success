@@ -2,12 +2,12 @@
 $body
 $title
 $tags
+$id=>DateTime->now->epoch
 </%args>
 
 <%perl>
 use DateTime;
 
-my $id = DateTime->now->epoch;
 my $post_path = $ENV{DOCUMENT_ROOT} . qq?/nowrap/posts/$id?;
 
 #print the title body of the post to a new text file
