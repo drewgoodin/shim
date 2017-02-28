@@ -1,0 +1,9 @@
+<%args>
+$id => 'error'
+</%args>
+<%init>
+use lib $ENV{DOCUMENT_ROOT};
+use Shim::Tools;
+my %post_content = Shim::Tools::post_content($id);
+</%init>
+<& new-post, title=>$post_content{title}, body=>(join "", @{$post_content{body}}), id=>$id &>
