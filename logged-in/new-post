@@ -4,8 +4,16 @@ $body=>""
 $tags=>""
 $id=>""
 </%args>
-<form action = '/logged-in/post-success?id=<% $id %>'
-                method = "post">
+
+<form action = 
+% if ($id) { 
+'/logged-in/post-success?id=<% $id %>'
+% }
+% else {
+'/logged-in/post-success'
+% }
+method = "post">
+
 <p>Title: <input type = "text/plain" name = "title" value="<% $title %>" /></p>
 <p><textarea type = "text/plain" name = "body" /><% $body %></textarea></p>
 <p>Tags (comma separated):<input type = "text/plain" name = "tags" value=<% $tags %> ></p>
