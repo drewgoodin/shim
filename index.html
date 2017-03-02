@@ -1,15 +1,25 @@
 <%args>
-@tags => () 
+$tags => "";
 </%args>
 <%init>
 use lib $ENV{DOCUMENT_ROOT};
 use Shim::Tools;
-my $posts = Shim::Tools::fetch_posts();
+my $posts;
+my @tags;
+if ($tags) {
+@tags = split /,/ => $tags;
+$posts = Shim::Tools::fetch_posts(Shim::Tools::posts_with_tags(@tags));
+}
+else {
+$posts = Shim::Tools::fetch_posts();
+}
 </%init>
 % use DateTime;
+
 % if (!($ENV{REMOTE_USER})) {
 <div class='corner'>Site owner? <a href=/logged-in/splash>Log In</a></div>
 % }
+
 % if (@tags) {
 <h3>Narrowed by:</h3>
 % for (@tags) {
@@ -17,17 +27,30 @@ my $posts = Shim::Tools::fetch_posts();
     <li><% $_ %></li>
 </ul>
 % }
+<div><a href = '<% $m->callers(1)->dir_path %>'>Clear tags</div>
 % }
 % else {
 <h3>Showing all posts.</h3>
+<form action = "<% $m->callers(1)->dir_path  %>" method = 'GET'>
+    <div>Narrow by tag (comma separated): <input type = text name = 'tags'>
+    <button type = "submit">Go</button>
+    </div>
+</form>
 % }
+
 <ul>
 % for (@$posts) {
-<li><a href=<% $ENV{REMOTE_USER} ? 
-    "/logged-in/view-post?id=" : 
-    "/view-post?id=" %><% $_->id %>>
-    <% $_->title %>
-    </a>
+<li>
+<a href=
+% if ($ENV{REMOTE_USER}) {
+"/logged-in/view-post?id=<% $_->id %>"
+% } 
+% else {
+"/view-post?id=<% $_->id %>"
+% }
+    >
+<% DateTime->from_epoch(epoch=>$_->id, time_zone => 'America/Chicago')->mdy . " - " . $_->title %>
+</a>
 </li>
 % }
 </ul>
