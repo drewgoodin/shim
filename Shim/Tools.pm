@@ -2,7 +2,8 @@ package Shim::Tools;
 use Shim::Post;
 use strict;
 use warnings;
-our @EXPORT = qw!fetch_posts extract_title posts_with_tags!;
+use Exporter qw!import!;
+our @EXPORT = qw!fetch_posts extract_title posts_with_tags read_tag_file!;
 
 sub fetch_posts {
     my @posts = @_;
@@ -34,8 +35,7 @@ sub posts_with_tags {
     my @tags = @_;
     my @post_list_per_tag;
     my @posts_with_tags;
-    open my $fh, '<', $ENV{DOCUMENT_ROOT} . qq?/nowrap/tags?;
-    my @lines = <$fh>;
+    my @lines = read_tag_file(); 
     for my $tag (@tags) {
        for my $line (@lines) { 
         if ($line =~ /^$tag (.*)$/) {
@@ -48,5 +48,11 @@ sub posts_with_tags {
     my @unique_posts = keys %posts_with_tags;
     @unique_posts ? return @unique_posts: return "no posts";
 }
-1;
 
+sub read_tag_file {
+    open my $fh, '<', $ENV{DOCUMENT_ROOT} . qq?/nowrap/tags? or die $!;
+    chomp(my @lines = <$fh>);
+    close $fh;
+    return @lines;
+}
+1;

@@ -7,11 +7,13 @@ $id => "error"
 <%init>
 my $post = Shim::Post->new($id);
 </%init>
+<meta name="keywords" content = "<% join "," => $post->tags %>">
 <h2><% $post->title %></h2>
+<div id="tags">Tags: <% join "," => $post->tags %></div>
 <% markdown($post->body) %> 
 % if ($ENV{REMOTE_USER}) {
 <div><a href='/logged-in/edit-post?id=<% $id %>'>Edit Post</a></div>
-<div><a href='/logged-in/delete-post?id=<% $id %>'>Delete Post</a></div>
+<div><a href='/logged-in/delete-post?id=<% $id %>' onclick='return confirm("Are you sure?")'>Delete Post</a></div>
 <div><a href='/logged-in/index.html'>Go Home</a></div>
 % }
 % else {
