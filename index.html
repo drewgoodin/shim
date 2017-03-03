@@ -8,7 +8,9 @@ my $posts;
 my @tags;
 if ($tags) {
 @tags = split /,/ => $tags;
-$posts = Shim::Tools::fetch_posts(Shim::Tools::posts_with_tags(@tags));
+$_ =~ s/^\s+|\s+$//g for @tags; 
+@tags = map { lc } @tags;
+$posts = fetch_posts(posts_with_tags(@tags));
 }
 else {
 $posts = Shim::Tools::fetch_posts();

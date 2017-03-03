@@ -1,7 +1,7 @@
 <%args>
 $title=>""
 $body=>""
-$tags=>""
+@tags=>()
 $id=>""
 </%args>
 
@@ -16,6 +16,6 @@ method = "post">
 
 <p>Title: <input type = "text/plain" name = "title" value="<% $title %>" /></p>
 <p><textarea type = "text/plain" name = "body" /><% $body %></textarea></p>
-<p>Tags (comma separated):<input type = "text/plain" name = "tags" value=<% $tags %> ></p>
+<p>Tags (comma separated):<input type = "text/plain" name = "tags" value=<% join "," => @tags %> ></p>
 <button type = "submit">Post</button>
 </form>

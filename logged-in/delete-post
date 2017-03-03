@@ -1,6 +1,24 @@
 <%args>
 $id
 </%args>
-% unlink $ENV{DOCUMENT_ROOT} . qq?/nowrap/posts/$id?;
+
+<%perl>
+unlink $ENV{DOCUMENT_ROOT} . qq?/nowrap/posts/$id?;
+my $tag_path = $ENV{DOCUMENT_ROOT} . qq?/nowrap/tags?;
+my @tag_file_lines;
+
+open my $fh, '<', $tag_path or die $!;
+for (<$fh>) { 
+    chomp;
+    push @tag_file_lines => $_;
+}
+close $fh;
+
+s/\s$id// for @tag_file_lines;
+
+open $fh, '>', $tag_path or die $!;
+print $fh qq?$_\n? for @tag_file_lines;
+close $fh;
+</%perl>
 
 <div>Post deleted. <a href='/logged-in/index.html'>Go Home</a>
