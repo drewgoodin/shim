@@ -36,8 +36,8 @@ sub _tags_for_post {
     return @tags;
 }
 
-sub title { shift->{title} };
-sub id    { shift->{id} };
-sub body  { shift->{body} };
-sub tags  { @{shift->{tags}} };
+sub title { shift->{title} }
+sub id    { shift->{id} }
+sub body  { shift->{body} }
+sub tags  { @{shift->{tags}} }
 1;

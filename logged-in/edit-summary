@@ -1,0 +1,8 @@
+<%perl>
+open my $fh, '<', $ENV{DOCUMENT_ROOT} . qq?/nowrap/about? or die $!;
+my $blurb = join "" => <$fh>;
+close $fh;
+</%perl>
+<form action = '/logged-in/summary-success' method = 'post'>
+<textarea name = 'summary'><% $blurb %></textarea>
+<button type='submit'>Submit</button>
