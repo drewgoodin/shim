@@ -1,8 +1,7 @@
-<%perl>
-open my $fh, '<', $ENV{DOCUMENT_ROOT} . qq?/nowrap/about? or die $!;
-my $blurb = join "" => <$fh>;
-close $fh;
-</%perl>
-<form action = '/logged-in/summary-success' method = 'post'>
-<textarea type="text/plain" name = "summary"><% $blurb %></textarea>
-<button type='submit'>Submit</button>
+<%init>
+use lib $ENV{DOCUMENT_ROOT};
+use Shim::Tools;
+my %post_content = Shim::Tools::post_content('summary');
+my $post = Shim::Post->new('summary');
+</%init>
+<& '/logged-in/new-post', title=>$post_content{title}, body=>(join "", @{$post_content{body}}), id=>'summary', tags=>[$post->tags], &>
