@@ -29,7 +29,6 @@ my $summary = @$summary_aref[0];
 <div class='corner'>Site owner? <a href=/logged-in/splash>Log In</a></div>
 % }
 <div id = "summary">
-    <h2><% $summary->title %></h2>
     <% markdown($summary->body) %>
 </div>
 % if (@tags) {
