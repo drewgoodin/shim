@@ -66,6 +66,6 @@ my $summary = @$summary_aref[0];
 </li>
 % }
 </ul>
-% $m->call_next();
+% $m->callers(1);
 <%method title><% $summary->title %></%method>
 <%method keywords><% join "," => $summary->tags %></%method>

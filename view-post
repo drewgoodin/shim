@@ -18,6 +18,6 @@ my $post = Shim::Post->new($m->request_args->{id});
 % else {
 <div><a href='/index.html'>Go Home</a></div>
 %}
-% $m->call_next();
+% $m->callers(1);
 <%method title><% $post->title %></%method>
 <%method keywords><% join "," => $post->tags %></%method>
