@@ -1,4 +1,4 @@
-<%args>
-$id => "error";
-</%args>
-<& /view-post, id=>$id &>
+<%flags>
+inherit => '/view-post'
+</%flags>
+<& logout &>
