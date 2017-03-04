@@ -22,6 +22,9 @@ close $fh;
 my @tags = split ',' => $tags; 
 $_ =~ s/^\s+|\s+$//g for @tags; #trim whitespace from members of tag list
 @tags = map { lc } @tags;
+for (@tags) {
+    if (/\S+\s+\S+/) {die "can't have spaces within tags!"};
+}
 
 #open up the tag file to read the tag associations we already have and
 #place them in an array
@@ -37,17 +40,26 @@ for (<$fh>) {
 
 close $fh;
 
-#modify our tag array to include our new post. 
-
+#append post id to tag line, or add a new tag line if this is 
+#the first post with a the given tag
 OUTER: for my $tag (@tags) {
     INNER: for my $line (@tag_file_lines) {
-       if ( $line =~ /^$tag/ ) {
-           $line .= qq? $id?; 
-           next OUTER;
-       }
-       else { next INNER } ;
+    $line =~ /^$tag/ ?
+    (index $line, $id) == -1 ?
+    do {$line .= qq? $id?; next OUTER} : next OUTER :
+    next INNER;
     }
-    push @tag_file_lines => $tag . qq? $id?; # add new tag if needed
+push @tag_file_lines => $tag . qq? $id?; # add new tag if needed
+}
+
+#in case you're removing tag(s) via edit-post
+#this removes the post id from the tag(s) in question 
+my $tag_str = join " " => @tags;
+for my $line (@tag_file_lines) {
+    if ((index $line, $id ) != -1){
+        $line =~ /^(\S+)/;
+        $line =~ s/\s$id// unless (index $tag_str, $1) != -1;
+    }
 }
 
 #refresh our tag file

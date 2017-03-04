@@ -4,5 +4,5 @@ my $blurb = join "" => <$fh>;
 close $fh;
 </%perl>
 <form action = '/logged-in/summary-success' method = 'post'>
-<textarea name = 'summary'><% $blurb %></textarea>
+<textarea type="text/plain" name = "summary"><% $blurb %></textarea>
 <button type='submit'>Submit</button>
