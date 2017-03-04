@@ -38,11 +38,11 @@ my $summary = @$summary_aref[0];
     <li><% $_ %></li>
 </ul>
 % }
-<div><a href = '<% $m->callers(1)->dir_path %>'>Clear tags</div>
+<div><a href = '<% $m->base_comp->dir_path %>'>Clear tags</div>
 % }
 % else {
 <h3>Showing all posts.</h3>
-<form action = "<% $m->callers(1)->dir_path  %>" method = 'GET'>
+<form action = "<% $m->base_comp->dir_path  %>" method = 'GET'>
     <div>Narrow by tag (comma separated): <input type = text name = 'tags'>
     <button type = "submit">Go</button>
     </div>
@@ -51,6 +51,7 @@ my $summary = @$summary_aref[0];
 
 <ul>
 % for (@$posts) {
+% next if ($_->id eq 'summary' );
 <li>
 <a href=
 % if ($ENV{REMOTE_USER}) {
@@ -65,6 +66,6 @@ my $summary = @$summary_aref[0];
 </li>
 % }
 </ul>
-% $m->callers(1);
+% $m->call_next if $m->fetch_next;
 <%method title><% $summary->title %></%method>
 <%method keywords><% join "," => $summary->tags %></%method>
