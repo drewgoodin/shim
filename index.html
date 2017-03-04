@@ -18,7 +18,7 @@ $posts = Shim::Tools::fetch_posts();
 my $summary = Shim::Tools::fetch_summary();
 </%init>
 % use DateTime;
-
+% use Text::Mardown qw!markdown!;
 % if (!($ENV{REMOTE_USER})) {
 <div class='corner'>Site owner? <a href=/logged-in/splash>Log In</a></div>
 % }
