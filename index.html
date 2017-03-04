@@ -15,6 +15,7 @@ $posts = fetch_posts(posts_with_tags(@tags));
 else {
 $posts = Shim::Tools::fetch_posts();
 }
+my $summary = Shim::Tools::fetch_summary();
 </%init>
 % use DateTime;
 
@@ -22,7 +23,7 @@ $posts = Shim::Tools::fetch_posts();
 <div class='corner'>Site owner? <a href=/logged-in/splash>Log In</a></div>
 % }
 
-<p><& /nowrap/about &></p>
+<% markdown($summary) %>
 
 % if (@tags) {
 <h3>Narrowed by:</h3>
