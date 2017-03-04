@@ -1,0 +1,14 @@
+<div class='corner'>Logged in as <% $ENV{REMOTE_USER} %>.
+<a href = '/' onclick = "logout();"> Log out</a>
+</div>
+<script type = "text/javascript">
+function logout () {
+    var url = "/logged-in/logout/";
+    var method = "GET";
+    var async = true;
+    var request = new XMLHttpRequest();
+    request.open(method, url, async, "logout", "logout");
+    request.send();
+    alert("You have been logged out.");
+}
+</script>

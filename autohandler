@@ -2,6 +2,8 @@
 <html lang='EN-US'>
 <head>
     <meta charset = "UTF-8">
+    <title><& SELF:title &></title>
+    <meta name = "keywords" content = "<& SELF:keywords &>">
     <link rel = "stylesheet"
           type = "text/css"
           href = "/nowrap/style.css" />
@@ -11,3 +13,5 @@
 </body>
 </html>
 
+<%method title>use warnings</%method>
+<%method keywords>perl,carpentry,linux,blog</%method>

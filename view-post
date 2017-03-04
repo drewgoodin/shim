@@ -4,10 +4,9 @@
 <%args>
 $id => "error"
 </%args>
-<%init>
-my $post = Shim::Post->new($id);
-</%init>
-<meta name="keywords" content = "<% join "," => $post->tags %>">
+<%shared>
+my $post = Shim::Post->new($m->request_args->{id});
+</%shared>
 <h2><% $post->title %></h2>
 <div id="tags">Tags: <% join "," => $post->tags %></div>
 <% markdown($post->body) %> 
@@ -19,3 +18,6 @@ my $post = Shim::Post->new($id);
 % else {
 <div><a href='/index.html'>Go Home</a></div>
 %}
+% $m->call_next();
+<%method title><% $post->title %></%method>
+<%method keywords><% join "," => $post->tags %></%method>
