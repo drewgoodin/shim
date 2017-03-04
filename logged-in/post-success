@@ -39,13 +39,8 @@ close $fh;
 
 #modify our tag array to include our new post. 
 
-unless (@tags) { 
-    s/\s$id// for @tag_file_lines; #in case you remove tags via edit
-}
-
 OUTER: for my $tag (@tags) {
     INNER: for my $line (@tag_file_lines) {
-       next OUTER if $line =~ /$id/;
        if ( $line =~ /^$tag/ ) {
            $line .= qq? $id?; 
            next OUTER;
