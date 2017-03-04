@@ -14,7 +14,7 @@ my $post_path = $ENV{DOCUMENT_ROOT} . qq?/nowrap/posts/$id?;
 
 open my $fh, '>', $post_path or die $!;
 print $fh qq?$title\n?;
-print $fh qq?$body\n?;
+print $fh qq?$body?;
 close $fh;
 
 #make an array of tags from the string sent to this component via http post

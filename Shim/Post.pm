@@ -15,10 +15,7 @@ sub _init {
     $self->{id} = $id;
     my %post_content = Shim::Tools::post_content($id);
     my @body = @{$post_content{body}};
-    local $/ = "\r\n"; 
-    chomp @body;
-    my @body_for_markdown = map { "$_  \n" } @body;
-    my $body = join "" => @body_for_markdown;
+    my $body = Shim::Tools::markdown_line_format(@body);
     my @tags = $self->_tags_for_post();
     $self->{title} = $post_content{title};
     $self->{body}  = $body;
