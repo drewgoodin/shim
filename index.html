@@ -1,10 +1,11 @@
 <%args>
 $tags => "";
 </%args>
-<%init>
+<%shared>
 use lib $ENV{DOCUMENT_ROOT};
 use Shim::Tools;
 my $posts;
+my $tags = $m->request_args->{tags};
 my @tags;
 if ($tags) {
 @tags = split /,/ => $tags;
@@ -15,15 +16,21 @@ $posts = fetch_posts(posts_with_tags(@tags));
 else {
 $posts = Shim::Tools::fetch_posts();
 }
-my $summary = Shim::Tools::fetch_summary();
-</%init>
+my $summary_aref = Shim::Tools::fetch_posts('summary');
+my $summary = @$summary_aref[0];
+</%shared>
 % use DateTime;
 % use Text::Markdown qw!markdown!;
-% if (!($ENV{REMOTE_USER})) {
+% if ($ENV{REMOTE_USER}) {
+<div><a href='/logged-in/new-post'>New Post</a></div>
+<div><a href='/logged-in/edit-summary'>Edit Summary</a></div>
+% } 
+% else {
 <div class='corner'>Site owner? <a href=/logged-in/splash>Log In</a></div>
 % }
 <div id = "summary">
-<% markdown($summary) %>
+    <h2><% $summary->title %></h2>
+    <% markdown($summary->body) %>
 </div>
 % if (@tags) {
 <h3>Narrowed by:</h3>
@@ -59,3 +66,6 @@ my $summary = Shim::Tools::fetch_summary();
 </li>
 % }
 </ul>
+% $m->call_next();
+<%method title><% $summary->title %></%method>
+<%method keywords><% join "," => $summary->tags %></%method>

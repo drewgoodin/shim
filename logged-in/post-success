@@ -68,4 +68,10 @@ open $fh, '>', $tag_path or die $!;
 print $fh qq?$_\n? for @tag_file_lines;
 close $fh;
 </%perl>
-<div>Posted; <a href=/logged-in/view-post?id=<% $id %>>see it</a>.</div>
+
+% if ($id eq 'summary') {
+<div>Summary updated; <a href='/logged-in/index.html'>return</a>.</div>
+% }
+% else {
+<div>Posted; <a href="/logged-in/view-post?id=<% $id %>">see it</a>.</div>
+% }
