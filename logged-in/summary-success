@@ -1,7 +1,0 @@
-<%args>
-$summary
-</%args>
-% open my $fh, '>', $ENV{DOCUMENT_ROOT} . qq?/nowrap/about? or die $!;
-% print $fh qq?$summary?;
-% close $fh;
-<p>Summary edited. Go <a href='/logged-in/index.html'>Home</a></p>
