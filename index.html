@@ -22,9 +22,9 @@ my $summary = Shim::Tools::fetch_summary();
 % if (!($ENV{REMOTE_USER})) {
 <div class='corner'>Site owner? <a href=/logged-in/splash>Log In</a></div>
 % }
-
+<div id = "summary">
 <% markdown($summary) %>
-
+</div>
 % if (@tags) {
 <h3>Narrowed by:</h3>
 % for (@tags) {
