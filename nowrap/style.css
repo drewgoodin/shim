@@ -1,5 +1,19 @@
+body {
+    font-family:sans-serif;
+    background-color:HSL(300,10%,85%);
+    font-size:100%;
+}
 .corner {
     position:absolute;
-    right:0px;
-    width:250px;
+    right:10px;
+    top:7px;
+}
+blockquote {
+    background-color:HSL(300,10%,75%);
+    display:block;
+    border:1px solid black;
+    border-radius:5px;
+}
+#summary {
+    text-align:center;
 }
