@@ -4,9 +4,9 @@ body {
     font-size:100%;
 }
 .corner {
-    position:absolute;
-    right:10px;
-    top:7px;
+    position:relative;
+    top:10px;
+    bottom:10px;
 }
 blockquote {
     background-color:HSL(300,10%,75%);
