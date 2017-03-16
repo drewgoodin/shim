@@ -22,15 +22,16 @@ my $summary = @$summary_aref[0];
 % use DateTime;
 % use Text::Markdown qw!markdown!;
 % if ($ENV{REMOTE_USER}) {
-<div><a href='/logged-in/new-post'>New Post</a></div>
-<div><a href='/logged-in/edit-summary'>Edit Summary</a></div>
+<div class='posts'><a href='/logged-in/new-post'>New Post</a></div>
+<div class='sidebar'><a href='/logged-in/edit-summary'>Edit Summary</a></div>
 % } 
 % else {
-<div class='corner'>Site owner? <a href=/logged-in/splash>Log In</a></div>
+<div class='corner'>Is that you, John Wayne? <a href=/logged-in/splash>Log in</a></div>
 % }
-<div id = "summary">
+<div id = 'summary' class='sidebar'>
     <% markdown($summary->body) %>
 </div>
+<div class='posts'>
 % if (@tags) {
 <h3>Narrowed by:</h3>
 % for (@tags) {
@@ -66,6 +67,7 @@ my $summary = @$summary_aref[0];
 </li>
 % }
 </ul>
+</div>
 % $m->call_next if $m->fetch_next;
 <%method title><% $summary->title %></%method>
 <%method keywords><% join "," => $summary->tags %></%method>
