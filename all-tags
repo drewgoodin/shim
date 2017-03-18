@@ -4,8 +4,9 @@
 <a href="<% $ENV{HTTP_REFERER} %>">Go Home</a>
 <ul>
 % for (sort @tag_lines) {
-% /^(\S+)\s/;
+% if (/^(\S+)\s/) {
 <li><a href="<% $ENV{HTTP_REFERER} . qq!?tags=$1! %>"><% $1 %></a></li>
-%}
+% }
+% }
 </ul>
 <%method title>All Tags</%method>
