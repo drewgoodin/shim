@@ -50,7 +50,7 @@ my $summary = @$summary_aref[0];
 % }
 
 <ul>
-% for (@$posts) {
+% for (sort { $b->id <=> $a->id } @$posts) {
 % next if ($_->id eq 'summary' );
 <li>
 <a href=
