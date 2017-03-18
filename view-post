@@ -8,7 +8,7 @@ $id => "error"
 my $post = Shim::Post->new($m->request_args->{id});
 </%shared>
 <h2><% $post->title %></h2>
-<div id="tags">Tags:
+<div class="tags">Tags:
 % for ($post->tags) {
 <a href="<% $ENV{REMOTE_USER} ? qq!/logged-in?tags=$_! : qq!/?tags=$_! %>"><% $_ %></a>
 % } 
