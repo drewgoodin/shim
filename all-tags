@@ -1,6 +1,5 @@
 % use Shim::Tools;
 % my @tag_lines = Shim::Tools::read_tag_file();
-% print $ENV{HTTP_REFERER};
 <h2>All Tags</h2>
 <ul>
 % for (sort @tag_lines) {
