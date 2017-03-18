@@ -12,9 +12,9 @@ blockquote {
     top:10px;
     bottom:10px;
 }
+.tags {
+    font-size:90%;
+}
 #summary {
     text-align:center;
-}
-#tags {
-    font-size:90%;
 }
