@@ -45,8 +45,7 @@ my $summary = @$summary_aref[0];
 <h3>Showing all posts.</h3>
 <form action = "<% $m->base_comp->dir_path  %>" method = 'GET'>
     <div>Narrow by tag (comma separated): <input type = text name = 'tags'>
-    <button type = "submit">Go</button>
-    </div>
+        <button type = "submit">Go</button><span class="tags"><a href="/all-tags">Browse Tags</a></span>
 </form>
 % }
 
