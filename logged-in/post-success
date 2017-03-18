@@ -5,33 +5,26 @@ $tags
 $id=>DateTime->now->epoch
 </%args>
 
-<%perl>
+<%init>
 use DateTime;
+</%init>
 
-my $post_path = $ENV{DOCUMENT_ROOT} . qq?/nowrap/posts/$id?;
-
-#print the title body of the post to a new text file
-
-open my $fh, '>', $post_path or die $!;
-print $fh qq?$title\n?;
-print $fh qq?$body?;
-close $fh;
+<%perl>
 
 #make an array of tags from the string sent to this component via http post
-
 my @tags = split ',' => $tags; 
-$_ =~ s/^\s+|\s+$//g for @tags; #trim whitespace from members of tag list
-@tags = map { lc } @tags;
 for (@tags) {
-    if (/\S+\s+\S+/) {die "can't have spaces within tags!"};
+$_ =~ s/^\s+|\s+$//g; #trim outer whitespace
+$m->abort(500) if $_ =~ /\S+\s+\S+/; #error on inner whitespace
 }
+@tags = map { lc } @tags;
 
 #open up the tag file to read the tag associations we already have and
 #place them in an array
 
 my $tag_path = $ENV{DOCUMENT_ROOT} . qq?/nowrap/tags?;
 my @tag_file_lines;
-open $fh, '<', $tag_path or die $!;
+open my $fh, '<', $tag_path or die $!;
 
 for (<$fh>) { 
     chomp;
@@ -67,6 +60,15 @@ for my $line (@tag_file_lines) {
 open $fh, '>', $tag_path or die $!;
 print $fh qq?$_\n? for @tag_file_lines;
 close $fh;
+
+my $post_path = $ENV{DOCUMENT_ROOT} . qq?/nowrap/posts/$id?;
+
+#print the title body of the post to a new text file
+open  $fh, '>', $post_path or die $!;
+print $fh qq?$title\n?;
+print $fh qq?$body?;
+close $fh;
+
 </%perl>
 
 % if ($id eq 'summary') {

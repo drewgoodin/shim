@@ -9,7 +9,10 @@ my $tags = $m->request_args->{tags};
 my @tags;
 if ($tags) {
 @tags = split /,/ => $tags;
-$_ =~ s/^\s+|\s+$//g for @tags; 
+for (@tags) {
+$_ =~ s/^\s+|\s+$//g; #trim outer whitespace
+$m->abort(500) if $_ =~ /\S+\s+\S+/; #error on inner whitespace
+}
 @tags = map { lc } @tags;
 $posts = fetch_posts(posts_with_tags(@tags));
 }
@@ -39,7 +42,7 @@ my $summary = @$summary_aref[0];
     <li><% $_ %></li>
 </ul>
 % }
-<div><a href = '<% $m->base_comp->dir_path %>'>Clear tags</div>
+<div class="tags"><a href = '<% $m->base_comp->dir_path %>'>Clear tags</a></div>
 % }
 % else {
 <h3>Showing all posts.</h3>
@@ -48,7 +51,7 @@ my $summary = @$summary_aref[0];
         <button type = "submit">Go</button><span class="tags"><a href="/all-tags">Browse Tags</a></span>
 </form>
 % }
-
+% if ($posts) {
 <ul>
 % for (sort { $b->id <=> $a->id } @$posts) {
 % next if ($_->id eq 'summary' );
@@ -66,6 +69,10 @@ my $summary = @$summary_aref[0];
 </li>
 % }
 </ul>
+% }
+% else {
+<p class="emph">No posts found</p>
+% }
 </div>
 % $m->call_next if $m->fetch_next;
 <%method title><% $summary->title %></%method>
