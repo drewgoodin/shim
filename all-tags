@@ -1,6 +1,7 @@
 % use Shim::Tools;
 % my @tag_lines = Shim::Tools::read_tag_file();
 <h2>All Tags</h2>
+<a href="<% $ENV{HTTP_REFERER} %>">Go Home</a>
 <ul>
 % for (sort @tag_lines) {
 % /^(\S+)\s/;
