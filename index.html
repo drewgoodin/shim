@@ -25,13 +25,13 @@ my $summary = @$summary_aref[0];
 % use DateTime;
 % use Text::Markdown qw!markdown!;
 % if ($ENV{REMOTE_USER}) {
-<div class='posts'><a href='/logged-in/new-post'>New Post</a></div>
+<div class='sidebar'><a href='/logged-in/new-post'>New Post</a></div>
 <div class='sidebar'><a href='/logged-in/edit-summary'>Edit Summary</a></div>
 % } 
 % else {
 <div class='corner'>Is that you, John Wayne? <a href=/logged-in/splash>Log in</a></div>
 % }
-<div id = 'summary' class='sidebar'>
+<div id = 'summary'>
     <% markdown($summary->body) %>
 </div>
 <div class='posts'>
@@ -47,14 +47,16 @@ my $summary = @$summary_aref[0];
 % else {
 <h3>Showing all posts.</h3>
 <form action = "<% $m->base_comp->dir_path  %>" method = 'GET'>
-    <div>Narrow by tag (comma separated): <input type = text name = 'tags'>
-        <button type = "submit">Go</button><span class="tags"><a href="/all-tags">Browse Tags</a></span>
+    Narrow by tag (comma separated): <input type = text name = 'tags'>
+    <button type = "submit">Go</button><span class="tags"><a href="/all-tags">Browse Tags</a></span>
 </form>
 % }
+% my $post_count = 0;
 % if ($posts) {
 <ul>
 % for (sort { $b->id <=> $a->id } @$posts) {
 % next if ($_->id eq 'summary' );
+% $post_count++;
 <li>
 <a href=
 % if ($ENV{REMOTE_USER}) {
@@ -70,7 +72,7 @@ my $summary = @$summary_aref[0];
 % }
 </ul>
 % }
-% else {
+% unless ($post_count) {
 <p class="emph">No posts found</p>
 % }
 </div>
