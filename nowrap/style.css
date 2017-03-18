@@ -15,6 +15,9 @@ blockquote {
 .tags {
     font-size:90%;
 }
+.emph {
+    font-style:italic;
+}
 #summary {
     text-align:center;
 }
