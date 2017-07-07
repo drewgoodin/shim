@@ -1,9 +1,9 @@
 body {
     font-family:sans-serif;
-    background-color:HSL(300,10%,85%);
+    background-color:HSL(300,55%,85%);
 }
 blockquote {
-    background-color:HSL(300,10%,75%);
+    background-color:HSL(300,55%,80%);
     border:1px solid black;
     border-radius:5px;
 }
@@ -20,7 +20,7 @@ blockquote {
 }
 .posts {
     display:block;
-    background-color:HSL(300,10%,75%);
+    background-color:HSL(300,20%,75%);
 }
 #summary {
     text-align:center;
