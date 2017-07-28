@@ -6,6 +6,7 @@ blockquote {
     background-color:HSL(300,55%,80%);
     border:1px solid black;
     border-radius:5px;
+    word-wrap: break-word;
 }
 .corner {
     position:relative;
