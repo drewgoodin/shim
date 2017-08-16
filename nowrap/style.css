@@ -1,12 +1,16 @@
 body {
     font-family:sans-serif;
-    background-color:HSL(300,55%,85%);
+    background-color:HSL(300,50%,85%);
 }
-blockquote {
-    background-color:HSL(300,55%,80%);
+pre {
+    background-color:HSL(300,50%,80%);
+    display:inline-block;
     border:1px solid black;
     border-radius:5px;
-    word-wrap: break-word;
+    position:relative;
+    left:7px;
+    padding:10px;
+    padding-right:70px;
 }
 .corner {
     position:relative;
