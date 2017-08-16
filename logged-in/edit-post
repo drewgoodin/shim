@@ -7,4 +7,5 @@ use Shim::Tools;
 my %post_content = Shim::Tools::post_content($id);
 my $post = Shim::Post->new($id);
 </%init>
-<& /logged-in/new-post, title=>$post_content{title}, body=>(join "", @{$post_content{body}}), id=>$id, tags=>[$post->tags], &>
+<& '/logged-in/new-post', title=>$post_content{title}, body=>(join "", @{$post_content{body}}), id=>$id, tags=>[$post->tags], &>
+<%method title>Edit Post</%method>

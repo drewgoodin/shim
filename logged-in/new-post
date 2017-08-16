@@ -15,7 +15,9 @@ $id=>""
 method = "post">
 
 <p>Title: <input type = "text/plain" name = "title" value="<% $title %>" /></p>
-<p><textarea type = "text/plain" name = "body" /><% $body %></textarea></p>
-<p>Tags (comma separated):<input type = "text/plain" name = "tags" value=<% join "," => @tags %> ></p>
+<p><textarea type = "text/plain" name = "body" cols=100 rows=10 /><% $body %></textarea></p>
+<p>Tags (comma separated):<input type = "text/plain" name = "tags" value="<% join "," => @tags %>" ></p>
 <button type = "submit">Post</button>
+<a href="/logged-in/">Cancel</a>
 </form>
+<%method title>New Post</%method>

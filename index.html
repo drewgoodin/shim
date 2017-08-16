@@ -1,30 +1,40 @@
 <%args>
 $tags => "";
 </%args>
-<%init>
+<%shared>
 use lib $ENV{DOCUMENT_ROOT};
 use Shim::Tools;
 my $posts;
+my $tags = $m->request_args->{tags};
 my @tags;
 if ($tags) {
 @tags = split /,/ => $tags;
-$_ =~ s/^\s+|\s+$//g for @tags; 
+for (@tags) {
+$_ =~ s/^\s+|\s+$//g; #trim outer whitespace
+$m->abort(500) if $_ =~ /\S+\s+\S+/; #error on inner whitespace
+}
 @tags = map { lc } @tags;
 $posts = fetch_posts(posts_with_tags(@tags));
 }
 else {
 $posts = Shim::Tools::fetch_posts();
 }
-my $summary = Shim::Tools::fetch_summary();
-</%init>
+my $summary_aref = Shim::Tools::fetch_posts('summary');
+my $summary = @$summary_aref[0];
+</%shared>
 % use DateTime;
 % use Text::Markdown qw!markdown!;
-% if (!($ENV{REMOTE_USER})) {
-<div class='corner'>Site owner? <a href=/logged-in/splash>Log In</a></div>
+% if ($ENV{REMOTE_USER}) {
+<div class='sidebar'><a href='/logged-in/new-post'>New Post</a></div>
+<div class='sidebar'><a href='/logged-in/edit-summary'>Edit Summary</a></div>
+% } 
+% else {
+<div class='corner'>Is that you, John Wayne? <a href=/logged-in/splash>Log in</a></div>
 % }
-<div id = "summary">
-<% markdown($summary) %>
+<div id = 'summary'>
+    <% markdown($summary->body) %>
 </div>
+<div class='posts'>
 % if (@tags) {
 <h3>Narrowed by:</h3>
 % for (@tags) {
@@ -32,19 +42,21 @@ my $summary = Shim::Tools::fetch_summary();
     <li><% $_ %></li>
 </ul>
 % }
-<div><a href = '<% $m->callers(1)->dir_path %>'>Clear tags</div>
+<div class="tags"><a href = '<% $m->base_comp->dir_path %>'>Clear tags</a></div>
 % }
 % else {
 <h3>Showing all posts.</h3>
-<form action = "<% $m->callers(1)->dir_path  %>" method = 'GET'>
-    <div>Narrow by tag (comma separated): <input type = text name = 'tags'>
-    <button type = "submit">Go</button>
-    </div>
+<form action = "<% $m->base_comp->dir_path  %>" method = 'GET'>
+    Narrow by tag (comma separated): <input type = text name = 'tags'>
+    <button type = "submit">Go</button><span class="tags"><a href="/all-tags">Browse Tags</a></span>
 </form>
 % }
-
+% my $post_count = 0;
+% if ($posts) {
 <ul>
-% for (@$posts) {
+% for (sort { $b->id <=> $a->id } @$posts) {
+% next if ($_->id eq 'summary' );
+% $post_count++;
 <li>
 <a href=
 % if ($ENV{REMOTE_USER}) {
@@ -59,3 +71,11 @@ my $summary = Shim::Tools::fetch_summary();
 </li>
 % }
 </ul>
+% }
+% unless ($post_count) {
+<p class="emph">No posts found</p>
+% }
+</div>
+% $m->call_next if $m->fetch_next;
+<%method title><% $summary->title %></%method>
+<%method keywords><% join "," => $summary->tags %></%method>

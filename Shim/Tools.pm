@@ -3,7 +3,7 @@ use Shim::Post;
 use strict;
 use warnings;
 use Exporter qw!import!;
-our @EXPORT = qw!fetch_posts extract_title posts_with_tags read_tag_file fetch_summary markdown_line_format!;
+our @EXPORT = qw!fetch_posts extract_title posts_with_tags read_tag_file markdown_line_format!;
 
 sub fetch_posts {
     my @posts = @_;
@@ -47,12 +47,6 @@ sub posts_with_tags {
     my %posts_with_tags = map { $_ => 1 } @posts_with_tags;
     my @unique_posts = keys %posts_with_tags;
     @unique_posts ? return @unique_posts: return "no posts";
-}
-
-sub fetch_summary {
-    open my $fh, '<', $ENV{DOCUMENT_ROOT} . qq?/nowrap/about?;
-    my @summary_lines = <$fh>;
-    my $summary = markdown_line_format(@summary_lines);
 }
 
 sub read_tag_file {

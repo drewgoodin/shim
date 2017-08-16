@@ -2,6 +2,10 @@
 <html lang='EN-US'>
 <head>
     <meta charset = "UTF-8">
+    <title><& SELF:title &></title>
+    <meta name = "keywords" content = "<& SELF:keywords &>">
+    <meta name = "viewport" content = "width=device-width">
+    <meta name = "viewport" content = "initial-scale=1.0">
     <link rel = "stylesheet"
           type = "text/css"
           href = "/nowrap/style.css" />
@@ -11,3 +15,5 @@
 </body>
 </html>
 
+<%method title>Blog with Shim</%method>
+<%method keywords></%method>

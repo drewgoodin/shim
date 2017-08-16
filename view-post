@@ -4,12 +4,15 @@
 <%args>
 $id => "error"
 </%args>
-<%init>
-my $post = Shim::Post->new($id);
-</%init>
-<meta name="keywords" content = "<% join "," => $post->tags %>">
+<%shared>
+my $post = Shim::Post->new($m->request_args->{id});
+</%shared>
 <h2><% $post->title %></h2>
-<div id="tags">Tags: <% join "," => $post->tags %></div>
+<div class="tags">Tags:
+% for ($post->tags) {
+<a href="<% $ENV{REMOTE_USER} ? qq!/logged-in?tags=$_! : qq!/?tags=$_! %>"><% $_ %></a>
+% } 
+</div>
 <% markdown($post->body) %> 
 % if ($ENV{REMOTE_USER}) {
 <div><a href='/logged-in/edit-post?id=<% $id %>'>Edit Post</a></div>
@@ -19,3 +22,6 @@ my $post = Shim::Post->new($id);
 % else {
 <div><a href='/index.html'>Go Home</a></div>
 %}
+% $m->call_next if $m->fetch_next;
+<%method title><% $post->title %></%method>
+<%method keywords><% join "," => $post->tags %></%method>
