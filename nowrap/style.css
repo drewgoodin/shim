@@ -1,9 +1,9 @@
 body {
     font-family:sans-serif;
-    background-color:HSL(300,50%,85%);
+    background-color:HSL(120,50%,85%);
 }
 pre {
-    background-color:HSL(300,50%,80%);
+    background-color:HSL(120,50%,80%);
     display:inline-block;
     border:1px solid black;
     border-radius:5px;
@@ -25,7 +25,7 @@ pre {
 }
 .posts {
     display:block;
-    background-color:HSL(300,20%,75%);
+    background-color:HSL(120,20%,75%);
 }
 #summary {
     text-align:center;
