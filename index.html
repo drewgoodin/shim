@@ -29,7 +29,7 @@ my $summary = @$summary_aref[0];
 <div class='sidebar'><a href='/logged-in/edit-summary'>Edit Summary</a></div>
 % } 
 % else {
-<div class='corner'>Is that you, John Wayne? <a href=/logged-in/splash>Log in</a></div>
+<div class='corner'>Is that you? <a href=/logged-in/splash>Log in</a></div>
 % }
 <div id = 'summary'>
     <% markdown($summary->body) %>
