@@ -19,21 +19,12 @@ $posts = fetch_posts(posts_with_tags(@tags));
 else {
 $posts = Shim::Tools::fetch_posts();
 }
-my $summary_aref = Shim::Tools::fetch_posts('summary');
-my $summary = @$summary_aref[0];
 </%shared>
 % use DateTime;
 % use Text::Markdown qw!markdown!;
 % if ($ENV{REMOTE_USER}) {
 <div class='sidebar'><a href='/logged-in/new-post'>New Post</a></div>
-<div class='sidebar'><a href='/logged-in/edit-summary'>Edit Summary</a></div>
 % } 
-% else {
-<div class='corner'>Is that you? <a href=/logged-in/splash>Log in</a></div>
-% }
-<div id = 'summary'>
-    <% markdown($summary->body) %>
-</div>
 <div class='posts'>
 % if (@tags) {
 <h3>Narrowed by:</h3>
@@ -55,7 +46,6 @@ my $summary = @$summary_aref[0];
 % if ($posts) {
 <ul>
 % for (sort { $b->id <=> $a->id } @$posts) {
-% next if ($_->id eq 'summary' );
 % $post_count++;
 <li>
 <a href=
@@ -65,9 +55,10 @@ my $summary = @$summary_aref[0];
 % else {
 "/view-post?id=<% $_->id %>"
 % }
-    >
-<% DateTime->from_epoch(epoch=>$_->id, time_zone => 'America/Chicago')->mdy . " - " . $_->title %>
+>
+<% $_->title %>
 </a>
+<div class="date"><% DateTime->from_epoch(epoch=>$_->id, time_zone => 'America/Chicago')->mdy %></div>
 </li>
 % }
 </ul>
@@ -77,5 +68,5 @@ my $summary = @$summary_aref[0];
 % }
 </div>
 % $m->call_next if $m->fetch_next;
-<%method title><% $summary->title %></%method>
-<%method keywords><% join "," => $summary->tags %></%method>
+<%method title>Shim</%method>
+<%method keywords></%method>
