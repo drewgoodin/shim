@@ -1,9 +1,9 @@
 body {
-    font-family:sans-serif;
-    background-color:HSL(120,30%,85%);
+    font-family:serif;
+    background-color:HSL(120,30%,100%);
 }
 pre {
-    background-color:HSL(120,50%,80%);
+    background-color:HSL(120,50%,95%);
     display:inline-block;
     border:1px solid black;
     border-radius:5px;
@@ -11,11 +11,6 @@ pre {
     left:7px;
     padding:10px;
     padding-right:70px;
-}
-.corner {
-    position:relative;
-    top:10px;
-    bottom:10px;
 }
 .tags {
     font-size:90%;
@@ -25,8 +20,10 @@ pre {
 }
 .posts {
     display:block;
-    background-color:HSL(120,20%,75%);
+    background-color:HSL(120,20%,95%);
 }
-#summary {
-    text-align:center;
+a {
+	text-decoration: none;
+	font-family: sans-serif;
+	color: navy;
 }
