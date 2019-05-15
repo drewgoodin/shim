@@ -22,7 +22,7 @@ $m->abort(500) if $_ =~ /\S+\s+\S+/; #error on inner whitespace
 #open up the tag file to read the tag associations we already have and
 #place them in an array
 
-my $tag_path = qq?components/nowrap/tags?;
+my $tag_path = qq?components/static/tags?;
 my @tag_file_lines;
 open my $fh, '<', $tag_path or die $!;
 
@@ -61,7 +61,7 @@ open $fh, '>', $tag_path or die $!;
 print $fh qq?$_\n? for @tag_file_lines;
 close $fh;
 
-my $post_path =  qq?components/nowrap/posts/$id?;
+my $post_path =  qq?components/static/posts/$id?;
 
 #print the title body of the post to a new text file
 open  $fh, '>', $post_path or die $!;

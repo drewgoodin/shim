@@ -3,8 +3,8 @@ $id
 </%args>
 
 <%perl>
-unlink qq?components/nowrap/posts/$id?;
-my $tag_path = qq?components/nowrap/tags?;
+unlink qq?components/static/posts/$id?;
+my $tag_path = qq?components/static/tags?;
 my @tag_file_lines;
 
 open my $fh, '<', $tag_path or die $!;

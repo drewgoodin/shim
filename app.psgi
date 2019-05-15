@@ -18,7 +18,7 @@ my $app2 = sub {
 
 builder {
 	mount "/" => $app;
-	mount "/nowrap" => Plack::App::File->new(root => "./components/nowrap")->to_app;
+	mount "/static" => Plack::App::File->new(root => "./components/static")->to_app;
 	mount "/admin" => builder {
 		enable "Auth::Basic", authenticator => sub { 
 			my ($u, $p, $e) = @_;

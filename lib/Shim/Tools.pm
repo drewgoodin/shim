@@ -14,7 +14,7 @@ sub fetch_posts {
         }
     }
     else {
-        my $dir = qq?components/nowrap/posts/?;
+        my $dir = qq?components/static/posts/?;
         opendir (my $dh, $dir);
         @posts = grep { /^[0-9]+$/ } readdir $dh;
     }
@@ -24,7 +24,7 @@ sub fetch_posts {
 
 sub post_content { #returns list containing title and aref of body lines
     my $id = shift;
-    open my $fh, '<', qq?components/nowrap/posts/$id?;
+    open my $fh, '<', qq?components/static/posts/$id?;
     my @post_lines = <$fh>;
     my $title = shift @post_lines;
     chomp $title;
@@ -48,7 +48,7 @@ sub posts_with_tag {
 }
 
 sub read_tag_file {
-    open my $fh, '<', qq?components/nowrap/tags? or die $!;
+    open my $fh, '<', qq?components/static/tags? or die $!;
     chomp(my @lines = <$fh>);
     close $fh;
     return @lines;

@@ -2,19 +2,15 @@
 <html lang='EN-US'>
 <head>
     <meta charset = "UTF-8">
-    <title><& SELF:title &></title>
-    <meta name = "keywords" content = "<& SELF:keywords &>">
+    <title><Shim Admin Center></title>
     <meta name = "viewport" content = "width=device-width">
     <meta name = "viewport" content = "initial-scale=1.0">
     <link rel = "stylesheet"
           type = "text/css"
-          href = "/nowrap/style.css" />
+          href = "/static/style.css" />
 </head>
 <body>
 % $m->call_next();
 <& logout &>
 </body>
 </html>
-
-<%method title>Blog Admin Center</%method>
-<%method keywords></%method>

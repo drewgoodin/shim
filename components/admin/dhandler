@@ -3,7 +3,6 @@ use Shim::Tools;
 my $posts = Shim::Tools::fetch_posts();
 </%shared>
 % use DateTime;
-% use Text::Markdown qw!markdown!;
 <div class="title">
 	<a href="/" id="homelink">Blog Home</a>
 	<hr>
@@ -29,7 +28,4 @@ my $posts = Shim::Tools::fetch_posts();
 		<p class="emph">No posts found</p>
 % }
 	</div>
-	</div>
-% $m->call_next if $m->fetch_next;
-<%method title>Shim Admin Area</%method>
-<%method keywords></%method>
+</div>
