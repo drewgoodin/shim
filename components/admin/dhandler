@@ -12,6 +12,7 @@ my $posts = Shim::Tools::fetch_posts();
 		<div><a href='/admin/new-post'>New Post</a></div>
 		<div><a href='/admin/edit-summary'>Edit Summary</a></div>
 	<div class='posts'>
+	<p>Click to edit</p>
 % my $post_count = 0;
 % if ($posts) {
 		<ul>
@@ -30,5 +31,5 @@ my $posts = Shim::Tools::fetch_posts();
 	</div>
 	</div>
 % $m->call_next if $m->fetch_next;
-<%method title>Shim</%method>
+<%method title>Shim Admin Area</%method>
 <%method keywords></%method>
