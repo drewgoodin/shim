@@ -5,7 +5,7 @@ You'll need a few Perl modules:
 ---
 
 - HTML::Mason
-- URI::Encode
+- URL::Encode
 - Plack::Request
 - Plack::Builder
 - Plack::App::File
