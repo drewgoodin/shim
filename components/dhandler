@@ -14,10 +14,6 @@ my $summary = @$summary_aref[0];
 </%shared>
 % use DateTime;
 % use Text::Markdown qw!markdown!;
-<div class="title">
-	<a href="/" id="homelink"><% $summary->title %></a>
-	<hr>
-</div>
 <div class="main">
 	<% markdown($summary->body) %>
 	<hr>

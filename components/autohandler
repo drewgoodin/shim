@@ -1,3 +1,6 @@
+% use Shim::Tools;
+% my $summary_aref = Shim::Tools::fetch_posts('summary');
+% my $summary = @$summary_aref[0];
 <!DOCTYPE HTML>
 <html lang='EN-US'>
 <head>
@@ -11,6 +14,10 @@
           href = "/nowrap/style.css" />
 </head>
 <body>
+<div class="title">
+	<a href="/" id="homelink"><% $summary->title %></a>
+	<hr>
+</div>
 % $m->call_next();
 </body>
 </html>

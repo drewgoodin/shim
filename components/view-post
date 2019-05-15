@@ -10,7 +10,5 @@ my $post = Shim::Post->new($m->request_args->{id});
 % } 
 </div>
 <% markdown($post->body) %> 
-<div><a href='/'>Go Home</a></div>
-% $m->call_next if $m->fetch_next;
 <%method title><% $post->title %></%method>
 <%method keywords><% join "," => $post->tags %></%method>
