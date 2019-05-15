@@ -1,0 +1,80 @@
+<%args>
+$body
+$title
+$tags
+$id=>DateTime->now()->epoch()
+</%args>
+
+<%init>
+use DateTime;
+</%init>
+
+<%perl>
+
+#make an array of tags from the string sent to this component via http post
+my @tags = split ',' => $tags; 
+for (@tags) {
+$_ =~ s/^\s+|\s+$//g; #trim outer whitespace
+$m->abort(500) if $_ =~ /\S+\s+\S+/; #error on inner whitespace
+}
+@tags = map { lc } @tags;
+
+#open up the tag file to read the tag associations we already have and
+#place them in an array
+
+my $tag_path = qq?components/nowrap/tags?;
+my @tag_file_lines;
+open my $fh, '<', $tag_path or die $!;
+
+for (<$fh>) { 
+    chomp;
+    push @tag_file_lines => $_;
+}
+
+close $fh;
+
+#append post id to tag line, or add a new tag line if this is 
+#the first post with a the given tag
+OUTER: for my $tag (@tags) {
+    INNER: for my $line (@tag_file_lines) {
+    $line =~ /^$tag/ ?
+    (index $line, $id) == -1 ?
+    do {$line .= qq? $id?; next OUTER} : next OUTER :
+    next INNER;
+    }
+push @tag_file_lines => $tag . qq? $id?; # add new tag if needed
+}
+
+#in case you're removing tag(s) via edit-post
+#this removes the post id from the tag(s) in question 
+my $tag_str = join " " => @tags;
+for my $line (@tag_file_lines) {
+    if ((index $line, $id ) != -1){
+        $line =~ /^(\S+)/;
+        $line =~ s/\s$id// unless (index $tag_str, $1) != -1;
+    }
+}
+
+#refresh our tag file
+
+open $fh, '>', $tag_path or die $!;
+print $fh qq?$_\n? for @tag_file_lines;
+close $fh;
+
+my $post_path =  qq?components/nowrap/posts/$id?;
+
+#print the title body of the post to a new text file
+open  $fh, '>', $post_path or die $!;
+print $fh qq?$title\n?;
+print $fh qq?$body?;
+close $fh;
+
+</%perl>
+
+% if ($id eq 'summary') {
+<div>Summary updated; <a href='/admin'>return</a>.</div>
+% }
+% else {
+<div>Posted; <a href="/view-post?id=<% $id %>">see it</a>.</div>
+<div>Posted; <a href="/admin">back to admin area</a>.</div>
+% }

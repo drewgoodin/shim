@@ -1,0 +1,12 @@
+% use Shim::Tools;
+% my @tag_lines = Shim::Tools::read_tag_file();
+
+<h4>Tags</h4>
+% unless (@tag_lines) {
+	<p>No tags yet!<p>
+% }
+% for (sort @tag_lines) {
+%		if (/^(\S+)\s/) {
+			<a href="/?tag=<% $1 %>"><% $1 %></a>,
+%		}
+% }

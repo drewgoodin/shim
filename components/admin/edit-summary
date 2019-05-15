@@ -1,0 +1,10 @@
+<%args>
+$id => 'summary'
+</%args>
+<%init>
+use Shim::Tools;
+my %post_content = Shim::Tools::post_content('summary');
+my $post = Shim::Post->new('summary');
+</%init>
+<& new-post, title=>$post_content{title}, body=>(join "", @{$post_content{body}}), id=>$id, tags=>[$post->tags] &>
+<%method title>Edit Summary</%method>

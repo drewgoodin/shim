@@ -1,0 +1,16 @@
+% use Text::Markdown qw!markdown!;
+% use Shim::Post;
+<%shared>
+my $post = Shim::Post->new($m->request_args->{id});
+</%shared>
+<h2><% $post->title %></h2>
+<div class="tags">Tags:
+% for ($post->tags) {
+<a href="<% qq!/?tags=$_! %>"><% $_ %></a>
+% } 
+</div>
+<% markdown($post->body) %> 
+<div><a href='/'>Go Home</a></div>
+% $m->call_next if $m->fetch_next;
+<%method title><% $post->title %></%method>
+<%method keywords><% join "," => $post->tags %></%method>

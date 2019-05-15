@@ -1,0 +1,34 @@
+<%shared>
+use Shim::Tools;
+my $posts = Shim::Tools::fetch_posts();
+</%shared>
+% use DateTime;
+% use Text::Markdown qw!markdown!;
+<div class="title">
+	<a href="/" id="homelink">Blog Home</a>
+	<hr>
+</div>
+<div class="main">
+		<div><a href='/admin/new-post'>New Post</a></div>
+		<div><a href='/admin/edit-summary'>Edit Summary</a></div>
+	<div class='posts'>
+% my $post_count = 0;
+% if ($posts) {
+		<ul>
+%		for (sort { $b->id <=> $a->id } @$posts) {
+%			$post_count++;
+			<li>
+			<a href="/admin/edit-post?id=<% $_->id %>"><% $_->title %></a>
+			<div class="date"><% DateTime->from_epoch(epoch=>$_->id, time_zone => 'America/Chicago')->mdy %></div>
+		</li>
+%		}
+		</ul>
+% }
+% unless ($post_count) {
+		<p class="emph">No posts found</p>
+% }
+	</div>
+	</div>
+% $m->call_next if $m->fetch_next;
+<%method title>Shim</%method>
+<%method keywords></%method>
