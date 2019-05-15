@@ -1,3 +1,3 @@
-**shim** is a flat-file blog platform for Apache/mod_perl, developed with Perl and Mason
+**shim** is a flat-file Perl/PSGI blog application.
 
 See the Wiki for install and use notes.
