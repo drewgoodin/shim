@@ -25,6 +25,7 @@ my $summary = @$summary_aref[0];
 % if ($posts) {
 		<ul>
 %		for (sort { $b->id <=> $a->id } @$posts) {
+%			next if $_->id eq 'summary';
 %			$post_count++;
 			<li>
 			<a href="/view-post?id=<% $_->id %>"><% $_->title %></a>
