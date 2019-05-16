@@ -19,4 +19,7 @@ $id=>""
 	<button type = "submit">Post</button>
 	<a href="/admin">Cancel</a>
 </form>
+<br>
+<hr>
+<br>
 <%method title>New Post</%method>
