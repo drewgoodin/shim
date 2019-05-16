@@ -21,4 +21,8 @@ print $fh qq?$_\n? for @tag_file_lines;
 close $fh;
 </%perl>
 
-<div>Post deleted. <a href='/admin'>Admin Home</a>
+<div>Post deleted.</div>
+<br>
+<hr>
+<br>
+<a href='/admin'>Admin Home</a>
