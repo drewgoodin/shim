@@ -29,3 +29,6 @@ a {
 	font-family: sans-serif;
 	color: navy;
 }
+#tags {
+	max-width: 750px;
+}
