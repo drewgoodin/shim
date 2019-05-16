@@ -76,5 +76,7 @@ close $fh;
 % }
 % else {
 <div>Posted; <a href="/view-post?id=<% $id %>">see it</a>.</div>
-<div><a href="/admin">back to admin area</a>.</div>
+<hr>
+<div><a href="/admin">Back to admin</a>.</div>
+<hr>
 % }

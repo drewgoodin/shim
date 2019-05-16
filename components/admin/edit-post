@@ -6,8 +6,5 @@ my %post_content = Shim::post_content($id);
 my $post = Shim->new($id);
 </%init>
 <& new-post, title=>$post_content{title}, body=>(join "", @{$post_content{body}}), id=>$id, tags=>[$post->tags], &>
-<br>
-<hr>
-<br>
 <a href="/admin/delete-post?id=<% $id %>" onclick='return confirm("DELETING POST..Are you sure?")'>Delete Post</a>
 <%method title>Edit Post</%method>
