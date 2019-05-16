@@ -6,15 +6,14 @@ use Plack::Request;
 use URL::Encode qw!url_params_mixed!;
 
 sub new {
-	my ($class, $env, $root) = @_;
+	my ($class, $env, @args) = @_;
  	my $self =  bless {
 		env => $env,
 		resource => $env->{PATH_INFO},
 		'headers' => [],
 		code => 200,
-		interp => HTML::Mason::Interp->new(
-			comp_root => "$root",
-		),
+		interp => $args[0] eq 'comp_root' ? HTML::Mason::Interp->new(
+			comp_root => "$args[1]") : '',
 	} => $class;
 	$self->{resource} =~ s/^(\/)//;
 	return $self

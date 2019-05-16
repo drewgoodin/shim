@@ -7,13 +7,13 @@ use Plack::App::File;
 my $app = sub {
 	 
    my $env = shift;
-	 my $resp = Slurm::Response->new($env,"$ENV{PWD}/components/");
+	 my $resp = Slurm::Response->new($env, comp_root => "$ENV{PWD}/components/");
 	 $resp->send();
 };
 
 my $app2 = sub {
    my $env = shift;
-	 my $resp = Slurm::Response->new($env,"$ENV{PWD}/components/admin/");
+	 my $resp = Slurm::Response->new($env, comp_root => "$ENV{PWD}/components/admin/");
 	 $resp->send();
 };
 
