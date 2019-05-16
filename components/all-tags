@@ -6,6 +6,6 @@
 % }
 % for (sort @tag_lines) {
 %		if (/^(\S+)\s/) {
-			<a href="/?tag=<% $1 %>"><% $1 %></a>,
+%		print "<a href='/?tag=$1'>$1</a>," unless /^$1 summary$/;
 %		}
 % }

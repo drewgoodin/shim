@@ -37,7 +37,7 @@ close $fh;
 #the first post with a the given tag
 OUTER: for my $tag (@tags) {
     INNER: for my $line (@tag_file_lines) {
-    $line =~ /^$tag/ ?
+    $line =~ /^$tag\s+/ ?
     (index $line, $id) == -1 ?
     do {$line .= qq? $id?; next OUTER} : next OUTER :
     next INNER;
