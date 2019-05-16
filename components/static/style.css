@@ -21,6 +21,8 @@ pre {
 .posts {
     display:block;
     background-color:HSL(120,20%,95%);
+		height: 300px;
+		overflow-y: auto;
 }
 a {
 	text-decoration: none;
