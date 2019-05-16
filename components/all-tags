@@ -1,5 +1,4 @@
-% use Shim::Tools;
-% my @tag_lines = Shim::Tools::read_tag_file();
+% my @tag_lines = Shim::read_tag_file();
 
 <h4>Tags</h4>
 % unless (@tag_lines) {

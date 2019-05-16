@@ -1,5 +1,4 @@
-% use Shim::Tools;
-% my $summary_aref = Shim::Tools::fetch_posts('summary');
+% my $summary_aref = Shim->fetch_posts('summary');
 % my $summary = @$summary_aref[0];
 <!DOCTYPE HTML>
 <html lang='EN-US'>

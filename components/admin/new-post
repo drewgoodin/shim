@@ -7,17 +7,16 @@ $id=>""
 
 <form action = 
 % if ($id) { 
-/admin/post-success?id=<% $id %>
+		/admin/post-success?id=<% $id %>
 % }
 % else {
-/admin/post-success
+		/admin/post-success
 % }
-method = "post">
-
-<p>Title: <input type = "text/plain" name = "title" value="<% $title %>" /></p>
-<p><textarea type = "text/plain" name = "body" cols=100 rows=10 /><% $body %></textarea></p>
-<p>Tags (comma separated):<input type = "text/plain" name = "tags" value="<% join "," => @tags %>" ></p>
-<button type = "submit">Post</button>
-<a href="/admin">Cancel</a>
+	method = "post">
+	<p>Title: <input type = "text/plain" name = "title" value="<% $title %>" /></p>
+	<p><textarea type = "text/plain" name = "body" cols=100 rows=10 /><% $body %></textarea></p>
+	<p>Tags (comma separated):<input type = "text/plain" name = "tags" value="<% join "," => @tags %>" ></p>
+	<button type = "submit">Post</button>
+	<a href="/admin">Cancel</a>
 </form>
 <%method title>New Post</%method>

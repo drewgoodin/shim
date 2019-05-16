@@ -1,6 +1,5 @@
 <%shared>
-use Shim::Tools;
-my $posts = Shim::Tools::fetch_posts();
+my $posts = Shim->fetch_posts();
 </%shared>
 % use DateTime;
 <div class="title">

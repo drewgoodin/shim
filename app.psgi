@@ -1,7 +1,8 @@
+use lib './lib';
 use Slurm::Response;
+use Shim;
 use Plack::Builder;
 use Plack::App::File;
-use lib './lib';
 
 my $app = sub {
 	 

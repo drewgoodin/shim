@@ -1,15 +1,14 @@
 <%shared>
-use Shim::Tools;
 my $posts;
 my $tag = $m->request_args->{tag};
 if ($tag) {
 	$tag = lc $tag;
-	$posts = fetch_posts(posts_with_tag($tag));
+	$posts = Shim->fetch_posts(posts_with_tag($tag));
 }
 else {
-	$posts = Shim::Tools::fetch_posts();
+	$posts = Shim->fetch_posts();
 }
-my $summary_aref = Shim::Tools::fetch_posts('summary');
+my $summary_aref = Shim->fetch_posts('summary');
 my $summary = @$summary_aref[0];
 </%shared>
 % use DateTime;
@@ -17,10 +16,6 @@ my $summary = @$summary_aref[0];
 <div class="main">
 	<% markdown($summary->body) %>
 	<hr>
-
-% if ($ENV{REMOTE_USER}) {
-		<div class='sidebar'><a href='/logged-in/new-post'>New Post</a></div>
-% } 
 	<div class='posts'>
 % if ($tag) {
 		<p>Narrowed by: '<% $tag %>'</p>
