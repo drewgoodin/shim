@@ -1,11 +1,11 @@
 % use Text::Markdown qw!markdown!;
 <%shared>
-my $post = Shim->new($m->request_args->{id});
+	my $post = Shim->new($m->request_args->{id});
 </%shared>
 <h2><% $post->title %></h2>
 <div class="tags">Tags:
 % for ($post->tags) {
-<a href="<% qq!/?tags=$_! %>"><% $_ %></a>
+		<a href="<% qq!/?tag=$_! %>"><% $_ %></a>
 % } 
 </div>
 <% markdown($post->body) %> 
