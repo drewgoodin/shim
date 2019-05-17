@@ -36,24 +36,23 @@ sub title { shift->{title} }
 sub id    { shift->{id} }
 sub body  { shift->{body} }
 sub tags  { @{shift->{tags}} }
-1;
 
 sub fetch_posts {
-		my $self = shift;
-	  my @posts = @_;
-    my @post_objs;
-    if (@posts) {
-        if ($posts[0] eq "no posts") {
-            return ();
-        }
-    }
-    else {
-        my $dir = qq?components/static/posts/?;
-        opendir (my $dh, $dir);
-        @posts = grep { /^[0-9]+$/ } readdir $dh;
-    }
-    @post_objs = map { $self->new($_) } @posts;
-    return \@post_objs;
+	my $self = shift;
+	my @posts = @_;
+	my @post_objs;
+	if (@posts) {
+		if ($posts[0] eq "no posts") {
+			return ();
+		}
+	}
+	else {
+		my $dir = qq?components/static/posts/?;
+		opendir (my $dh, $dir);
+		@posts = grep { /^[0-9]+$/ } readdir $dh;
+	}
+	@post_objs = map { $self->new($_) } @posts;
+	return \@post_objs;
 }
 
 sub post_content { #returns list containing title and aref of body lines
