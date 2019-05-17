@@ -11,51 +11,42 @@ use DateTime;
 
 <%perl>
 
-#make an array of tags from the string sent to this component via http post
 my @tags = split ',' => $tags; 
 for (@tags) {
-$_ =~ s/^\s+|\s+$//g; #trim outer whitespace
-$m->abort(500) if $_ =~ /\S+\s+\S+/; #error on inner whitespace
+  $_ =~ s/^\s+|\s+$//g; 
+  $m->abort(500) if $_ =~ /\S+\s+\S+/; 
 }
-@tags = map { lc } @tags;
 
-#open up the tag file to read the tag associations we already have and
-#place them in an array
+@tags = map { lc } @tags;
 
 my $tag_path = qq?components/static/tags?;
 my @tag_file_lines;
 open my $fh, '<', $tag_path or die $!;
 
-for (<$fh>) { 
-    chomp;
-    push @tag_file_lines => $_;
+for (<$fh>) { #populate existing tags
+  chomp;
+  push @tag_file_lines => $_;
 }
 
 close $fh;
 
-#append post id to tag line, or add a new tag line if this is 
-#the first post with a the given tag
-OUTER: for my $tag (@tags) {
-    INNER: for my $line (@tag_file_lines) {
-    $line =~ /^$tag\s+/ ?
-    (index $line, $id) == -1 ?
-    do {$line .= qq? $id?; next OUTER} : next OUTER :
-    next INNER;
-    }
-push @tag_file_lines => $tag . qq? $id?; # add new tag if needed
+OUTER: for my $tag (@tags) { #add post id to tag record, add new tag record if needed
+  INNER: for my $line (@tag_file_lines) {
+  $line =~ /^$tag\s+/ ?
+  (index $line, $id) == -1 ?
+  do {$line .= qq? $id?; next OUTER} : next OUTER :
+  next INNER;
+  }
+  push @tag_file_lines => $tag . qq? $id?; # add new tag if needed
 }
 
-#in case you're removing tag(s) via edit-post
-#this removes the post id from the tag(s) in question 
-my $tag_str = join " " => @tags;
+my $tag_str = join " " => @tags; #weird code for removing post id from tag record if needed
 for my $line (@tag_file_lines) {
-    if ((index $line, $id ) != -1){
-        $line =~ /^(\S+)/;
-        $line =~ s/\s$id// unless (index $tag_str, $1) != -1;
-    }
+  if ((index $line, $id ) != -1){
+    $line =~ /^(\S+)/;
+    $line =~ s/\s$id// unless (index $tag_str, $1) != -1;
+  }
 }
-
-#refresh our tag file
 
 open $fh, '>', $tag_path or die $!;
 print $fh qq?$_\n? for @tag_file_lines;
@@ -63,7 +54,6 @@ close $fh;
 
 my $post_path =  qq?components/static/posts/$id?;
 
-#print the title body of the post to a new text file
 open  $fh, '>', $post_path or die $!;
 print $fh qq?$title\n?;
 print $fh qq?$body?;
@@ -72,11 +62,11 @@ close $fh;
 </%perl>
 
 % if ($id eq 'summary') {
-<div>Summary updated; <a href='/admin'>return</a>.</div>
+    <div>Summary updated; <a href='/admin'>return</a>.</div>
 % }
 % else {
-<div>Posted; <a href="/view-post?id=<% $id %>">see it</a>.</div>
-<hr>
-<div><a href="/admin">Back to admin</a>.</div>
-<hr>
+    <div>Posted; <a href="/view-post?id=<% $id %>">see it</a>.</div>
+    <hr>
+    <div><a href="/admin">Back to admin</a>.</div>
+    <hr>
 % }

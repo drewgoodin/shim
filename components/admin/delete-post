@@ -9,8 +9,8 @@ my @tag_file_lines;
 
 open my $fh, '<', $tag_path or die $!;
 for (<$fh>) { 
-    chomp;
-    push @tag_file_lines => $_;
+  chomp;
+  push @tag_file_lines => $_;
 }
 close $fh;
 

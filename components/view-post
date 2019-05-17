@@ -1,16 +1,16 @@
 % use Text::Markdown qw!markdown!;
 <%shared>
-	my $post = Shim->new($m->request_args->{id});
+  my $post = Shim->new($m->request_args->{id});
 </%shared>
 <h2><% $post->title %></h2>
 <div class="tags">Tags:
 % if ($post->tags) {
-%		for ($post->tags) {
-			<a href="<% qq!/?tag=$_! %>"><% $_ %></a>
-%		} 
+% 	for ($post->tags) {
+      <a href="<% qq!/?tag=$_! %>"><% $_ %></a>
+%	  } 
 % }
-% else {
-	<em>none</em>
+% else { 
+    <em>none</em>
 %	}
 </div>
 <% markdown($post->body) %> 

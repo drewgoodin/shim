@@ -2,11 +2,11 @@
 my $posts;
 my $tag = $m->request_args->{tag};
 if ($tag) {
-	$tag = lc $tag;
-	$posts = Shim->fetch_posts(Shim::posts_with_tag($tag));
+  $tag = lc $tag;
+  $posts = Shim->fetch_posts(Shim::posts_with_tag($tag));
 }
 else {
-	$posts = Shim->fetch_posts();
+  $posts = Shim->fetch_posts();
 }
 my $summary_aref = Shim->fetch_posts('summary');
 my $summary = @$summary_aref[0];
@@ -14,33 +14,33 @@ my $summary = @$summary_aref[0];
 % use DateTime;
 % use Text::Markdown qw!markdown!;
 <div class="main">
-	<% markdown($summary->body) %>
-	<hr>
-	<div class='posts'>
+  <% markdown($summary->body) %>
+  <hr>
+  <div class='posts'>
 % if ($tag) {
-		<p>Narrowed by: '<% $tag %>'</p>
-		<a href = '<% $m->base_comp->dir_path %>'> clear</a>
+  <p>Narrowed by: '<% $tag %>'</p>
+  <a href = '<% $m->base_comp->dir_path %>'> clear</a>
 % }
 % my $post_count = 0;
 % if ($posts) {
-		<ul>
-%		for (sort { $b->id <=> $a->id } @$posts) {
-%			next if $_->id eq 'summary';
-%			$post_count++;
-			<li>
-			<a href="/view-post?id=<% $_->id %>"><% $_->title %></a>
-			<div class="date"><% DateTime->from_epoch(epoch=>$_->id, time_zone => 'America/Chicago')->mdy %></div>
-		</li>
-%		}
-		</ul>
+    <ul>
+%   for (sort { $b->id <=> $a->id } @$posts) {
+%     next if $_->id eq 'summary';
+%     $post_count++;
+      <li>
+      <a href="/view-post?id=<% $_->id %>"><% $_->title %></a>
+      <div class="date"><% DateTime->from_epoch(epoch=>$_->id, time_zone => 'America/Chicago')->mdy %></div>
+    </li>
+%   }
+    </ul>
 % }
 % unless ($post_count) {
-		<p class="emph">No posts found</p>
+  <p class="emph">No posts found</p>
 % }
-	</div>
-	<div id = 'tags'>
-	<& /all-tags &>
-	</div>
+  </div>
+  <div id = 'tags'>
+  <& /all-tags &>
+  </div>
 </div>
 <%method title><% $summary->title %></%method>
 <%method keywords><% join "," => $summary->tags %></%method>
