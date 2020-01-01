@@ -1,4 +1,4 @@
-package Slurm::Types;
+package Shim::Types;
 
 use strict;
 use warnings;

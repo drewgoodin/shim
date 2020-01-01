@@ -1,6 +1,6 @@
-package Slurm::Response;
+package Shim::Response;
 
-use Slurm::Types qw!get_type!;
+use Shim::Types qw!get_type!;
 use HTML::Mason;
 use Plack::Request;
 use URL::Encode qw!url_params_mixed!;

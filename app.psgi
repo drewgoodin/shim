@@ -1,6 +1,6 @@
 use lib 'lib';
-use Slurm::Response;
 use Shim;
+use Shim::Response;
 use Plack::Builder;
 use Plack::App::File;
 
@@ -9,12 +9,12 @@ my $interp = HTML::Mason::Interp->new(comp_root => "$ENV{PWD}/components/");
 my $interp2 = HTML::Mason::Interp->new(comp_root => "$ENV{PWD}/components/admin/");
 
 my $app = sub {
-  my $resp = Slurm::Response->new(shift, $interp);
+  my $resp = Shim::Response->new(shift, $interp);
   $resp->send();
 };
 
 my $app2 = sub {
-  my $resp = Slurm::Response->new(shift, $interp2);
+  my $resp = Shim::Response->new(shift, $interp2);
   $resp->send();
 };
 
