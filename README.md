@@ -17,5 +17,3 @@ To start blogging, clone the repository, change to the project root, and run ```
 The default username and password are on line 25 of app.psgi; modify them! The application uses Basic HTTP authentication to access the admin area. If public facing, this application should sit behind a reverse proxy with HTTPS.
 
 You can write your posts in Markdown! Not the extended Git version, though. 
-
-Shim includes (and relies on) a copy of [Slurm](https://github.com/goodind1/slurm), a PSGI handler for HTML::Mason applications.
